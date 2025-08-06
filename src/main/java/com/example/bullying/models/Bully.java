@@ -4,14 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-enum Role {
-    JOCK,
-    GOSSIP,
-    NERD_HATER,
-    TEACHER_PET,
-    OTHER
-}
-
 @Entity()
 @Table(name="bullies")
 @Data
