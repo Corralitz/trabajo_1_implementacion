@@ -1,4 +1,4 @@
 package com.example.bullying.dto;
 
-public class BullyDTO {
+public record BullyDTO() {
 }
