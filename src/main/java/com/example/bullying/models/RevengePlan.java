@@ -1,12 +1,37 @@
 package com.example.bullying.models;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
+@Entity
+@Table(name = "revenge_plans")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RevengePlan {
-    private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
-    // private Bully
+
+    //@ManyToOne
+    //@JoinColumn(name = "bully_id")
+    //private Bully bully;
+
     private Boolean isExecuted;
+
     private LocalDate datePlanned;
+
+    @Enumerated(EnumType.STRING)
+    private SuccessLevel successLevel;
 }

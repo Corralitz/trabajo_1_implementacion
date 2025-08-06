@@ -1,6 +1,6 @@
 package com.example.bullying.models;
 
-enum Role {
+public enum Role {
     JOCK,
     GOSSIP,
     NERD_HATER,

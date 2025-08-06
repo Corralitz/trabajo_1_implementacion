@@ -1,8 +1,7 @@
 package com.example.bullying.dto;
 
 import jakarta.validation.constraints.NotBlank;
-
-import javax.management.relation.Role;
+import com.example.bullying.models.Role;
 
 public record BullyDTO(
         @NotBlank(message = "Ingrese un nombre") String name,

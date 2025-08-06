@@ -15,6 +15,8 @@ public class Bully {
     private Long id;
     private String name;
     private String nickname;
+
+    @Enumerated(EnumType.STRING)
     private Role highSchoolRole;
     // private Clique clique
     private String bullyingReason;
