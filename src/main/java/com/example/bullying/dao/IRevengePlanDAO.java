@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IRevengePlanDAO extends JpaRepository<RevengePlan, Long> {
-    List<RevengePlan> findByTitle(String title);
+    List<RevengePlan> findRevengePlanById(Long id);
 }
