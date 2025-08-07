@@ -37,9 +37,8 @@ public class ServiceBully implements IServiceBully {
 
         Bully busqueda = bullyDAO.findBullyByName(newBully.getName())
                 .orElse(null);
-        if (busqueda == null) {
+        if (busqueda == null)
             throw new NameException("El bully con este nombre ya existe");
-        }
 
         return bullyDAO.save(newBully);
     }
@@ -49,6 +48,7 @@ public class ServiceBully implements IServiceBully {
         if (b == null) {
             throw new NameException("No se encontro el bully");
         }
+        bullyDAO.deleteById(id);
         return null;
     }
 

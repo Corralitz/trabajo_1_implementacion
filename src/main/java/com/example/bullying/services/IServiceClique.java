@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IServiceClique {
-    public List<Clique> getCliques();
+    public List<CliqueDTO> getCliques();
     public Clique addClique(CliqueDTO cliqueDTO);
     public Optional<Clique> removeClique(Long id);
     public Optional<Clique> getCliqueById(Long Id);
