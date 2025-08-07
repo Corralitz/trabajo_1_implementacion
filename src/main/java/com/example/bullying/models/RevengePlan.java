@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class RevengePlan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;

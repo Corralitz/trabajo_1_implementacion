@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 public class Media {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // private RevengePlan revengePlan;
     @Enumerated(EnumType.STRING)
