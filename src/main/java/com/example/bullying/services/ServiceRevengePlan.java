@@ -1,6 +1,6 @@
 package com.example.bullying.services;
 
-import com.example.bullying.Exceptions.NameException;
+import com.example.bullying.exceptions.NameException;
 import com.example.bullying.dao.IBullyDAO;
 import com.example.bullying.dao.IRevengePlanDAO;
 import com.example.bullying.dto.RevengePlanDTO;

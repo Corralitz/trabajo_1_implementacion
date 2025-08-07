@@ -1,6 +1,6 @@
 package com.example.bullying.services;
 
-import com.example.bullying.Exceptions.NameException;
+import com.example.bullying.exceptions.NameException;
 import com.example.bullying.dao.IMediaDAO;
 import com.example.bullying.dto.MediaDTO;
 import com.example.bullying.models.Media;
