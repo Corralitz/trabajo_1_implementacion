@@ -12,5 +12,9 @@ public record BullyDTO(
         @NotBlank(message = "Ingrese una razon") String bullyingReason,
         @Min(1)
         @Max(10)
-        int levelOfAnnoyance
+        int levelOfAnnoyance,
+
+        @NotBlank(message = "Ingrese un nombre de grupo")
+        String cliqueName
+
 ) {}
