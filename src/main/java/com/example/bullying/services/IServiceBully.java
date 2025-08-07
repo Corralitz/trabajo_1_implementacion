@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface IServiceBully {
     public List<BullyDTO> getBullies();
-    public Bully addBully(BullyDTO bully);
-    public Optional<Bully> removeBully(Long id);
+    public void addBully(BullyDTO bully);
+    public void removeBully(String name);
     public Optional<Bully> getBullyById(Long id);
-    public Optional<Bully> getBullyByName(String name);
+    public Bully getBullyByName(String name);
 }

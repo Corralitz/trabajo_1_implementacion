@@ -28,7 +28,7 @@ public class ServiceBully implements IServiceBully {
     }
 
     @Override
-    public Bully addBully(BullyDTO b) {
+    public void addBully(BullyDTO b) {
         Bully newBully = new Bully();
         newBully.setName(b.name());
         newBully.setNickname(b.nickname());
@@ -37,23 +37,24 @@ public class ServiceBully implements IServiceBully {
 
         Bully busqueda = bullyDAO.findBullyByName(newBully.getName())
                 .orElse(null);
-        if (busqueda == null)
+        if (busqueda != null)
             throw new NameException("El bully con este nombre ya existe");
 
-        return bullyDAO.save(newBully);
+        bullyDAO.save(newBully);
     }
 
-    public Optional<Bully> removeBully(Long id) {
-        Bully b = bullyDAO.findById(id).orElse(null);
-        if (b == null) {
+    public void removeBully(String name) {
+        Bully b = bullyDAO.findBullyByName(name).orElse(null);
+        if (b == null)
             throw new NameException("No se encontro el bully");
-        }
-        bullyDAO.deleteById(id);
-        return null;
+        bullyDAO.delete(b);
     }
 
-    public Optional<Bully> getBullyByName(String name) {
-        return null;
+    public Bully getBullyByName(String name) {
+        Bully b = bullyDAO.findBullyByName(name).orElse(null);
+        if (b == null)
+            throw new NameException("No se encontro el bully");
+        return b;
     }
 
     public Optional<Bully> getBullyById(Long id) {
