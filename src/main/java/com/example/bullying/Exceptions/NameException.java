@@ -1,4 +1,4 @@
-package com.example.bullying.Exceptions;
+package com.example.bullying.exceptions;
 
 public class NameException extends RuntimeException {
     public NameException(String message) {
