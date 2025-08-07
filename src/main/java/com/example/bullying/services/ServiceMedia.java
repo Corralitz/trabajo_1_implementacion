@@ -1,9 +1,11 @@
 package com.example.bullying.services;
 
+import com.example.bullying.dao.IRevengePlanDAO;
 import com.example.bullying.exceptions.NameException;
 import com.example.bullying.dao.IMediaDAO;
 import com.example.bullying.dto.MediaDTO;
 import com.example.bullying.models.Media;
+import com.example.bullying.models.RevengePlan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +17,18 @@ public class ServiceMedia implements IServiceMedia {
     @Autowired
     private IMediaDAO mediaDao;
 
+    @Autowired
+    private IRevengePlanDAO revengePlanDao;
+
     @Override
     public List<MediaDTO> getAllMedia() {
         return mediaDao.findAll().stream().map(
-                media -> {
-                    return new MediaDTO(
-                            media.getType(),
-                            media.getUrl(),
-                            media.getCaption()
-                    );
-                }
+                media -> new MediaDTO(
+                        media.getType(),
+                        media.getUrl(),
+                        media.getCaption(),
+                        media.getRevengePlan() != null ? media.getRevengePlan().getId() : null
+                )
         ).toList();
     }
 
@@ -34,11 +38,12 @@ public class ServiceMedia implements IServiceMedia {
         media.setType(dto.type());
         media.setUrl(dto.url());
         media.setCaption(dto.caption());
-        Media busqueda = mediaDao.findById(media.getId())
-                .orElse(null);
-        if (busqueda != null) {
-            throw new NameException("Media existente");
-        }
+
+        // Buscar el RevengePlan al que se asignará el media
+        RevengePlan revengePlan = revengePlanDao.findById(dto.revengePlanId())
+                .orElseThrow(() -> new NameException("No se encontró el plan de venganza con ese ID"));
+
+        media.setRevengePlan(revengePlan);
 
         return mediaDao.save(media);
     }

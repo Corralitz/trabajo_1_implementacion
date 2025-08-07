@@ -1,5 +1,6 @@
 package com.example.bullying.dto;
 
+import com.example.bullying.models.RevengePlan;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
@@ -10,5 +11,8 @@ public record MediaDTO(
         Type type,
         String caption,
         @URL()
-        String url
+        String url,
+
+        @NotBlank(message = "Se debe asignar a un plan de venganza")
+        Long revengePlanId
 ) {}

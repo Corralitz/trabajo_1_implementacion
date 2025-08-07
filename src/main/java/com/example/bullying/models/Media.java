@@ -20,7 +20,6 @@ public class Media {
     private Long id;
     // private RevengePlan revengePlan;
     @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Ingrese un tipo de recurso")
     private Type type;
     @Column(unique = true)
     @NotBlank(message = "Ingrese una URL")

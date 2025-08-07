@@ -14,7 +14,6 @@ public record BullyDTO(
         @Max(10)
         int levelOfAnnoyance,
 
-        @NotBlank(message = "Ingrese un nombre de grupo")
         String cliqueName
 
 ) {}
