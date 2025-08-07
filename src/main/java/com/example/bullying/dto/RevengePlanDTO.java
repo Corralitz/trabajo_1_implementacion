@@ -13,8 +13,8 @@ public record RevengePlanDTO(
         @NotBlank(message = "La descripción es obligatoria")
         String description,
 
-        @NotNull(message = "Debes asociar un bully")
-        UUID bullyId,
+        //@NotNull(message = "Debes asociar un bully")
+        //Long bullyId,
 
         @NotNull(message = "Debes indicar si se ejecutó o no")
         Boolean isExecuted,

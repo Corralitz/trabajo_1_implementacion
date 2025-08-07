@@ -4,7 +4,8 @@ import com.example.bullying.models.RevengePlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IRevengePlanDAO extends JpaRepository<RevengePlan, Long> {
-    List<RevengePlan> findRevengePlanById(Long id);
+    Optional<RevengePlan> findRevengePlanById(Long id);
 }

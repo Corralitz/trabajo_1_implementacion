@@ -1,6 +1,6 @@
 package com.example.bullying.models;
 
-enum Type {
+public enum Type {
     PHOTO_DRAWING,
     MEME,
     VIDEO

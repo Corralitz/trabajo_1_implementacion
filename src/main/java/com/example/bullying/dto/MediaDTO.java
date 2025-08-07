@@ -3,7 +3,7 @@ package com.example.bullying.dto;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
-import java.lang.reflect.Type;
+import com.example.bullying.models.Type;
 
 public record MediaDTO(
         @NotBlank(message = "Ingrese el tipo de recurso")

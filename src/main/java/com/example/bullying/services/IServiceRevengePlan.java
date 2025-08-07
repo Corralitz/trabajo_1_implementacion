@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IServiceRevengePlan {
-    public List<RevengePlan> getRevengePlans();
+    public List<RevengePlanDTO> getRevengePlans();
     public RevengePlan addRevengePlan(RevengePlanDTO dto);
     public Optional<RevengePlan> removeRevengePlan(Long id);
     public Optional<RevengePlan> getRevengePlansByBullyId(Long BullyId);
-    public Optional<RevengePlan> getRevengePlanByTittle(String title);
 }

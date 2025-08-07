@@ -4,4 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.bullying.models.Media;
 
-public interface IMediaDAO extends JpaRepository<Media, Long> {}
+import java.util.Optional;
+
+public interface IMediaDAO extends JpaRepository<Media, Long> {
+    Optional<Media> findById(Long id);
+}

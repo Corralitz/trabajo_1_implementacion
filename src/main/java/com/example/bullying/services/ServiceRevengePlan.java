@@ -1,15 +1,13 @@
 package com.example.bullying.services;
 
+import com.example.bullying.Exceptions.NameException;
 import com.example.bullying.dao.IBullyDAO;
-import com.example.bullying.dao.IMoodLevelDAO;
 import com.example.bullying.dao.IRevengePlanDAO;
 import com.example.bullying.dto.RevengePlanDTO;
-import com.example.bullying.models.Bully;
 import com.example.bullying.models.RevengePlan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.naming.NameAlreadyBoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +21,20 @@ public class ServiceRevengePlan implements IServiceRevengePlan {
     private IBullyDAO bullyDAO;
 
     @Override
-    public List<RevengePlan> getRevengePlans() {
-        return revengePlanDAO.findAll();
+    public List<RevengePlanDTO> getRevengePlans() {
+        return revengePlanDAO.findAll().stream().map(
+                revengePlan -> {
+                    return new RevengePlanDTO(
+                            revengePlan.getTitle(),
+                            revengePlan.getDescription(),
+                            revengePlan.getIsExecuted(),
+                            revengePlan.getDatePlanned(),
+                            revengePlan.getSuccessLevel()
+                    );
+                }
+        ).toList();
+
+
     }
 
     @Override
@@ -36,29 +46,27 @@ public class ServiceRevengePlan implements IServiceRevengePlan {
         plan.setDatePlanned(dto.datePlanned());
         plan.setSuccessLevel(dto.successLevel());
         RevengePlan busqueda =
-                revengePlanDAO.findRevengePlanById(plan.getId()).orElse(null);
-
-        if (busqueda != null){
-
+                 revengePlanDAO.findRevengePlanById(plan.getId()).orElse(null);
+        if (busqueda != null) {
+            throw new NameException("RevengePlan already exists");
         }
+        return revengePlanDAO.save(plan);
 
     }
 
 
     @Override
     public Optional<RevengePlan> removeRevengePlan(Long id) {
-        return Optional.empty();
+        Optional<RevengePlan> plan = revengePlanDAO.findById(id);
+        plan.ifPresent(revengePlanDAO::delete);
+        return plan;
     }
 
     @Override
     public Optional<RevengePlan> getRevengePlansByBullyId(Long BullyId) {
-        return Optional.empty();
+        return revengePlanDAO.findById(BullyId);
     }
 
-    @Override
-    public Optional<RevengePlan> getRevengePlanByTittle(String title) {
-        return Optional.empty();
-    }
 
 
 }
