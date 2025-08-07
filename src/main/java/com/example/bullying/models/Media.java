@@ -1,6 +1,7 @@
 package com.example.bullying.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,12 @@ public class Media {
     @NotBlank(message = "Ingrese una URL")
     private String url;
     private String caption;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "revenge_plan_id", nullable = false)
+    @JsonIgnore
+    private RevengePlan revengePlan;
+
+
+
 }

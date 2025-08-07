@@ -1,11 +1,13 @@
 package com.example.bullying.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "revenge_plans")
@@ -23,9 +25,9 @@ public class RevengePlan {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    //@ManyToOne
-    //@JoinColumn(name = "bully_id")
-    //private Bully bully;
+    @ManyToOne
+    @JoinColumn(name = "bully_id", nullable = false)
+    private Bully bully;
 
     private Boolean isExecuted;
 
@@ -33,4 +35,9 @@ public class RevengePlan {
 
     @Enumerated(EnumType.STRING)
     private SuccessLevel successLevel;
+
+    @OneToMany(mappedBy = "revengePlan", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Media> mediaList;
+
 }

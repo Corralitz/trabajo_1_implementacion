@@ -4,6 +4,7 @@ import com.example.bullying.exceptions.NameException;
 import com.example.bullying.dao.IBullyDAO;
 import com.example.bullying.dao.IRevengePlanDAO;
 import com.example.bullying.dto.RevengePlanDTO;
+import com.example.bullying.models.Bully;
 import com.example.bullying.models.RevengePlan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,48 +24,52 @@ public class ServiceRevengePlan implements IServiceRevengePlan {
     @Override
     public List<RevengePlanDTO> getRevengePlans() {
         return revengePlanDAO.findAll().stream().map(
-                revengePlan -> {
-                    return new RevengePlanDTO(
-                            revengePlan.getTitle(),
-                            revengePlan.getDescription(),
-                            revengePlan.getIsExecuted(),
-                            revengePlan.getDatePlanned(),
-                            revengePlan.getSuccessLevel()
-                    );
-                }
+                revengePlan -> new RevengePlanDTO(
+                        revengePlan.getTitle(),
+                        revengePlan.getDescription(),
+                        revengePlan.getBully() != null ? revengePlan.getBully().getId() : null,
+                        revengePlan.getIsExecuted(),
+                        revengePlan.getDatePlanned(),
+                        revengePlan.getSuccessLevel()
+                )
         ).toList();
-
-
     }
 
     @Override
-    public RevengePlan addRevengePlan(RevengePlanDTO dto) {
+    public void addRevengePlan(RevengePlanDTO dto) {
+        // Buscar al Bully
+        Bully bully = bullyDAO.findById(dto.bullyId())
+                .orElseThrow(() -> new RuntimeException("Bully no encontrado"));
+
+        // Crear el plan
         RevengePlan plan = new RevengePlan();
         plan.setTitle(dto.title());
         plan.setDescription(dto.description());
         plan.setIsExecuted(dto.isExecuted());
         plan.setDatePlanned(dto.datePlanned());
         plan.setSuccessLevel(dto.successLevel());
+        plan.setBully(bully);
+
+        // Validar existencia por título (puedes cambiar la lógica si el título no es único)
         RevengePlan busqueda =
-                 revengePlanDAO.findRevengePlanById(plan.getId()).orElse(null);
+                revengePlanDAO.findRevengePlanByTitle(plan.getTitle()).orElse(null);
         if (busqueda != null) {
             throw new NameException("RevengePlan already exists");
         }
-        return revengePlanDAO.save(plan);
 
+        revengePlanDAO.save(plan);
     }
 
 
     @Override
-    public Optional<RevengePlan> removeRevengePlan(Long id) {
-        Optional<RevengePlan> plan = revengePlanDAO.findById(id);
+    public void removeRevengePlan(String title) {
+        Optional<RevengePlan> plan = revengePlanDAO.findRevengePlanByTitle(title);
         plan.ifPresent(revengePlanDAO::delete);
-        return plan;
     }
 
     @Override
-    public Optional<RevengePlan> getRevengePlansByBullyId(Long BullyId) {
-        return revengePlanDAO.findById(BullyId);
+    public List<RevengePlan> getRevengePlansByBullyName(String bullyName) {
+        return revengePlanDAO.findByBully_Name(bullyName);
     }
 
 
