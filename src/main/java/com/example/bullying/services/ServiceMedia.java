@@ -15,9 +15,8 @@ public class ServiceMedia implements IServiceMedia {
     @Autowired
     private IMediaDAO mediaDao;
 
-
     @Override
-    public List<MediaDTO> getMoodLevels() {
+    public List<MediaDTO> getAllMedia() {
         return mediaDao.findAll().stream().map(
                 media -> {
                     return new MediaDTO(
@@ -30,7 +29,7 @@ public class ServiceMedia implements IServiceMedia {
     }
 
     @Override
-    public Media addMoodLevel(MediaDTO dto) {
+    public Media addMedia(MediaDTO dto) {
         Media media = new Media();
         media.setType(dto.type());
         media.setUrl(dto.url());
@@ -45,14 +44,14 @@ public class ServiceMedia implements IServiceMedia {
     }
 
     @Override
-    public Optional<Media> removeMoodLevel(Long id) {
+    public Optional<Media> removeMedia(Long id) {
         Optional<Media> media = mediaDao.findById(id);
         media.ifPresent(mediaDao::delete);
         return media;
     }
 
     @Override
-    public Optional<Media> getMoodLevelById(Long id) {
+    public Optional<Media> getMediaById(Long id) {
         return mediaDao.findById(id);
     }
 }
